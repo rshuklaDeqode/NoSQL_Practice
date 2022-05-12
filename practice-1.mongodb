@@ -1,0 +1,41 @@
+//Statement used for using this database
+use('myDatabase');
+
+//inserting one record with insert
+db.Employee.insert({'Name':'Jane', 'Age':'25', 'Salary':'1000', 'Dept':'Sales'})
+
+//inserting one records with insertOne
+db.Employee.insertOne({'Name':'Jane', 'Age':'25', 'Salary':'1000', 'Dept':'Sales'})
+
+//inserting multiple records with insertMany
+db.Employee.insertMany([{'Name':'Harry', 'Age':'23', 'Salary':'2000', 'Dept':'Accounts'},
+{'Name':'Ram', 'Age':'24', 'Salary':'3000', 'Dept':'Marketing'},
+{'Name':'Rahul', 'Age':'21', 'Salary':'4000', 'Dept':'Finance'}])
+
+///Added 3 records of Jane. Using deleteOne to delete only one occurence of Name=Jane
+db.Employee.deleteOne({'Name':'Jane'})
+
+//Added 3 records of Jane. Using deleteMany to delete all records of Name=Jane
+db.Employee.deleteMany({'Name':'Jane'})
+
+//To show all the records of the collection
+db.Employee.find()
+
+//Added 3 records of Ram. Using findOne to show only one occurence of Name=Ram
+db.Employee.findOne({'Name':'Ram'})
+
+//Added 3 records of Ram. Using find to show all occurences of Name=Ram
+db.Employee.find({'Name':'Ram'})
+
+//Added 3 records of Ram. Using findOneAndDelete to first the show the record we are deleting.
+db.Employee.findOneAndDelete({'Name':'Ram'})
+
+//Using findOneAndUpdate to update age for name=Charles
+db.Employee.findOneAndUpdate({'Name':'Charles'},{$set:{'Age':'29'}});
+
+// Using findOneAndReplace to replace the record ( without projection - without returnNewStatement=fale(default))
+ db.Employee.findOneAndReplace({'Name':'Ginger'},{'Name':'Ginger', 'Age':'30', 'Salary':'7000', 'Dept':'Sales'},returnNewStatement=true)
+
+// Using findOneAndReplace to replace the record ( without projection - with returnNewStatement=true)
+db.Employee.findOneAndReplace({'Name':'Ginger'},{'Name':'Charles', 'Age':'28', 'Salary':'7500', 'Dept':'Sales'},
+{returnNewDocument:true})
